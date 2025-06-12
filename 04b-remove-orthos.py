@@ -11,9 +11,13 @@ import glob
 import os
 
 # Define path
-path1 = '/Users/jr555/Documents/research/skysat/aoi2/training/'
-class_files = sorted(glob.glob(path1 + 'class-scenes/*.tif'))
-ortho_files = sorted(glob.glob(path1 + 'ortho-scenes/*.tif'))
+path1 = '/Users/jr555/Documents/research/skysat/'
+
+# Define AOI
+aoi = 'aoi1'
+
+class_files = sorted(glob.glob(path1 + aoi + '/training/class-scenes/*.tif'))
+ortho_files = sorted(glob.glob(path1 + aoi + '/training/ortho-scenes/*.tif'))
 
 #%%
 

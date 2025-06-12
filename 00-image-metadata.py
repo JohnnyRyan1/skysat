@@ -18,7 +18,7 @@ path1 = '/Volumes/meltwater-mapping_satellite-data/data/skysat/'
 path2 = '/Users/jr555/Library/CloudStorage/OneDrive-DukeUniversity/research/skysat/data/'
 
 # Define AOI
-aoi = 'aoi1'
+aoi = 'aoi4'
 
 # Define image paths
 image_paths = sorted(glob.glob(path1 + aoi + '/raw/*.tif'))

@@ -8,6 +8,7 @@ Test models.
 
 # Import packages
 import numpy as np
+import pandas as pd
 import tensorflow as tf
 import rasterio
 import matplotlib.pyplot as plt
@@ -20,14 +21,21 @@ from sklearn.metrics import accuracy_score, precision_score, recall_score
 path1 = '/Users/jr555/Library/CloudStorage/OneDrive-DukeUniversity/research/skysat/'
 path2 = '/Users/jr555/Documents/research/skysat/'
 
+# Define AOI
+aoi = 'aoi1'
+
+# Import file
+df = pd.read_csv(path2 + aoi + '/training/' + aoi + '.csv')
+
 # Define model
 unet = 'baseline-unet-20-epochs-adam-binary-crossentropy.keras'
 unet = 'ronneberger-unet-20-epochs-adam-binary_crossentropy.keras'
+unet = 'baseline-unet-aoi1-20-epochs-adam-binary_crossentropy.keras'
 
 #%%
 
 # List images
-image_list = sorted(glob.glob(path2 + 'aoi2/training/ortho-tiles/*.tif'))
+image_list = sorted(glob.glob(path2 + aoi + '/training/ortho-tiles/*.tif'))
 
 # Define five test images to evaluate on
 images = random.sample(image_list, 5)
@@ -45,7 +53,7 @@ for i in images:
     img = img.astype(np.float32)
     img = img / 255.0
 
-    src = rasterio.open(path2 + 'aoi2/training/class-tiles/' + os.path.basename(i))
+    src = rasterio.open(path2 + aoi + '/training/class-tiles/' + os.path.basename(i))
     clf = src.read()
     water = np.sum(clf == 1)
     
@@ -76,7 +84,7 @@ for i in images:
     class_filename = os.path.basename(i)
     
     # Load the image
-    src = rasterio.open(path2 + 'aoi2/training/class-tiles/' + class_filename)
+    src = rasterio.open(path2 + aoi + '/training/class-tiles/' + class_filename)
     img = src.read()
     img = np.moveaxis(img, 0, -1)
     class_images.append(img)

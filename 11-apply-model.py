@@ -20,17 +20,20 @@ import glob
 from scipy.ndimage import distance_transform_edt
 
 # Define AOI
-aoi = 'aoi3'
+aoi = 'aoi1'
+
+# Define model
+model = 'baseline-unet-aoi1-20-epochs-adam-binary_crossentropy.keras'
 
 # Define path
-path1 = '/Users/jr555/Documents/research/skysat/'
+path1 = '/Volumes/EXTERNAL_USB/skysat/'
 path2 = '/Users/jr555/Library/CloudStorage/OneDrive-DukeUniversity/research/skysat/models/'
 
 # List images
-image_list = sorted(glob.glob(path1 + aoi + '/' + 'apply/ortho-tiles/*.tif'))
+image_list = sorted(glob.glob(path1 + aoi + '/apply/ortho-tiles/*.tif'))
 
 # Load model
-model = tf.keras.models.load_model(path2 + 'baseline-unet-20-epochs-adam-binary_crossentropy.keras')
+model = tf.keras.models.load_model(path2 + model)
 
 # Define target shape
 target_shape = (320, 320, 4)

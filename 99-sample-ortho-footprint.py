@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 
-Make footprints from orthos.
+Make footprints from sample ortho.
 
 """
 
@@ -18,14 +18,14 @@ import os
 #%%
 
 # Define path
-path1 = '/Volumes/meltwater-mapping_satellite-data/data/skysat/'
-path2 = '/Volumes/meltwater-mapping_satellite-data/data/skysat/shapefiles/'
+path1 = '/Users/jr555/Documents/research/skysat/'
+path2 = '/Users/jr555/Library/CloudStorage/OneDrive-DukeUniversity/research/skysat/figures/flow-chart/'
 
 # Define AOI
 aoi = 'aoi1'
 
 # Define orthomosaics
-orthos = sorted(glob.glob(path1 + aoi + '/raw/' + '*.tif'))
+orthos = sorted(glob.glob(path1 + aoi + '/training/ortho-tiles/' + '20190708_150158_ssc12_u0004_analytic*.tif'))
 
 #%%
 
@@ -57,7 +57,7 @@ def raster_to_polygon(raster_file, infileshortname):
     gdf = gdf.drop(columns='_data')
 
     # Save to file
-    gdf.to_file(path1 + aoi + '/outlines/' + infileshortname + '.shp')
+    gdf.to_file(path2 + infileshortname + '.shp')
 
 for ortho in orthos:
     
@@ -74,14 +74,14 @@ for ortho in orthos:
     raster_to_polygon(ortho, infileshortname)
        
 # Merge into one file
-shapefile_paths = glob.glob(path1 + aoi + '/outlines/*.shp')
+shapefile_paths = glob.glob(path2 + '*.shp')
 
 # Read and concatenate all shapefiles into one GeoDataFrame
 gdf_list = [gpd.read_file(path) for path in shapefile_paths]
 gdf = gpd.GeoDataFrame(pd.concat(gdf_list, ignore_index=True))
 
 # Write
-gdf.to_file(path2 + aoi + '-index.shp')
+gdf.to_file(path2 + 'index.shp')
 
 #%%
 

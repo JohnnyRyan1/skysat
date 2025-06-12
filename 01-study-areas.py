@@ -15,8 +15,11 @@ from shapely.geometry import GeometryCollection
 # Define path
 path = '/Volumes/meltwater-mapping_satellite-data/data/skysat/shapefiles/'
 
+# Define AOI
+aoi = 'aoi1'
+
 # Import shapefile
-gdf = gpd.read_file(path + 'aoi2-index.shp')
+gdf = gpd.read_file(path + aoi + '-index.shp')
 
 #%%
 
@@ -48,7 +51,7 @@ filtered = GeometryCollection([geom for geom in overlap.geoms if not geom.geom_t
 # Put back in GeoDataFrame
 overlap_gdf = gpd.GeoDataFrame(geometry=[filtered], crs=gdf_dates.crs)
 overlap_gdf = overlap_gdf.explode()
-overlap_gdf.to_file(path + 'aoi2-index-overlaps.shp')
+overlap_gdf.to_file(path + 'aoi1-index-overlaps.shp')
 
 #%%
 

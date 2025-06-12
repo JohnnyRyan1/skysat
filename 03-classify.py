@@ -17,6 +17,7 @@ import os
 # Define path
 path1 = '/Volumes/meltwater-mapping_satellite-data/data/skysat/'
 path2 = '/Users/jr555/Library/CloudStorage/OneDrive-DukeUniversity/research/skysat/data/'
+path3 = '/Users/jr555/Documents/research/skysat/'
 
 # Define AOI
 aoi = 'aoi1'
@@ -42,7 +43,7 @@ for f in range(len(df)):
     if final_threshold == 0:
         pass
     else:
-    
+        print('%.0f out of %.0f' %(f+1, len(df)-1))
         # Read corresponding file
         file = rio.open_rasterio(path1 + aoi + '/raw/' + filename)
         
@@ -63,13 +64,13 @@ for f in range(len(df)):
         classified = classified.rio.write_crs(file.rio.crs)
         
         if classified.rio.transform()[0] == 1:
-            classified.rio.to_raster(path1 + aoi + '/training/class-scenes/' + filename)
+            classified.rio.to_raster(path3 + aoi + '/training/class-scenes/' + filename)
         else:           
             # Resample to 1 m
             output_raster = classified.rio.reproject(dst_crs=classified.rio.crs, resolution=1.0)
             
             # Export to GeoTIFF
-            output_raster.rio.to_raster(path1 + aoi + '/training/class-scenes/' + filename)
+            output_raster.rio.to_raster(path3 + aoi + '/training/class-scenes/' + filename)
     
 #%%
 
