@@ -30,7 +30,7 @@ path1 = '/Volumes/EXTERNAL_USB/skysat/'
 path2 = '/Users/jr555/Library/CloudStorage/OneDrive-DukeUniversity/research/skysat/models/'
 
 # List images
-image_list = sorted(glob.glob(path1 + aoi + '/apply/ortho-tiles/*.tif'))
+image_list = sorted(glob.glob(path1 + aoi + '/apply/ortho-tiles/201905*.tif'))
 
 # Load model
 model = tf.keras.models.load_model(path2 + model)

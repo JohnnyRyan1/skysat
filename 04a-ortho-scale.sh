@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Set your input directory and output directory
-input_dir="/Volumes/meltwater-mapping_satellite-data/data/skysat/aoi1/raw/"
+input_dir="/Volumes/meltwater-mapping_satellite-data/data/skysat/aoi1/raw/may/"
 output_dir="/Users/jr555/Documents/research/skysat/aoi1/training/ortho-scenes/"
 
 # Set NoData value

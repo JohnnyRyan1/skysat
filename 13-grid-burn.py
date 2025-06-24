@@ -4,6 +4,9 @@
 
 Burn values to common grid for analysis.
 
+NOTE: Removed one ortho scene from 2019-06-13 because there were some georeferencing issues.
+
+
 """
 
 # Import packages

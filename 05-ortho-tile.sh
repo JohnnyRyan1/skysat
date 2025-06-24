@@ -3,7 +3,7 @@
 # Note that the output directory should be local to make it much faster
 
 # Directory containing your input raster files
-input_dir="/Users/jr555/Documents/research/skysat/aoi1/training/ortho-scenes"
+input_dir="/Users/jr555/Documents/research/skysat/aoi1/training/ortho-scenes/may/"
 output_dir="/Volumes/EXTERNAL_USB/skysat/aoi1/apply/ortho-tiles"
 
 # Loop through each .tif file in the input directory

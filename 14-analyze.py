@@ -31,7 +31,7 @@ path2 = '/Volumes/meltwater-mapping_satellite-data/data/skysat/'
 aoi = 'aoi1'
 
 # Define files
-files = sorted(glob.glob(path1 + 'data/ ' + aoi + '/apply/' + '*.tif'))
+files = sorted(glob.glob(path1 + 'data/' + aoi + '/apply/' + '*.tif'))
 
 # Area of study site
 site = gpd.read_file(path1 + 'data/' + 'shapefiles/aoi1-focused.shp')
@@ -48,9 +48,9 @@ for file in files:
     # Read
     src = rasterio.open(file)
     
-    # Clip with shapefile
+    # Clip with region shapefile
     clf, out_transform = mask(src, site.geometry.values, crop=True)
-
+    
     # Size distribution
     binary_water_mask = (clf == 2).astype(int)
     labeled = label(binary_water_mask)
@@ -79,47 +79,67 @@ df = pd.DataFrame(list(zip(date_list, total_area, water_area)),
 
 df['area_fraction'] = df['total_area'] / site.area.values[0]
 df['water_fraction'] = df['water_area'] / df['total_area']
+df['water_corrected'] = df['water_area'] / df['area_fraction']
 
 #%%
 
 """
-Stats to describe distribution of water on Jun 13
+Stats to describe distribution of water on Jun
 
 """
 
 array = np.array(area_list[1])
 
-min_area = 0
-max_area = 100
-
-# Total water
-total_water = np.sum(array)
-
-# Filter water in the desired area range
-mask = (array >= min_area) & (array <= max_area)
-
-# Area of water in this range
+# Contribution of large supraglacial lakes to total water area
+area_threshold = 15000
+mask = (array >= area_threshold)
 total_area = np.sum(array[mask])
+num = np.count_nonzero(mask)
+fraction = (total_area / np.sum(array))*100
 
-# Number of blobs in that range
-num_blobs = np.count_nonzero(mask)
+print(f"Area of water larger than {area_threshold} m²: {total_area:.2f} m²")
+print(f"Number of water bodies in that range: {num}")
+print(f"Fraction of water relative to total: {fraction:.2f} %")
 
-# Fraction
+#%%
+
+min_area = 100
+max_area = 1000
+mask = (array >= min_area) & (array <= max_area)
+total_area = np.sum(array[mask])
+num = np.count_nonzero(mask)
 fraction = (total_area / np.sum(array))*100
 
 print(f"Area of water between {min_area} and {max_area} m²: {total_area:.2f} m²")
-print(f"Number of water bodies in that range: {num_blobs}")
+print(f"Number of water bodies in that range: {num}")
 print(f"Fraction of water relaitve to total: {fraction:.2f} %")
-
-
-
 
 
 #%%
 
+min_area = 0
+max_area = 100
+mask = (array >= min_area) & (array <= max_area)
+total_area = np.sum(array[mask])
+num = np.count_nonzero(mask)
+fraction = (total_area / np.sum(array))*100
+
+print(f"Area of water between {min_area} and {max_area} m²: {total_area:.2f} m²")
+print(f"Number of water bodies in that range: {num}")
+print(f"Fraction of water relaitve to total: {fraction:.2f} %")
+
+#%%
+
+# Describe change in water area
+df.index = date_list
+jun_mask = df.index.month == 6
+jun_means = (df['water_fraction'][jun_mask].mean() * site.area) / 1000000
+
+aug_mask = df.index.month == 8
+aug_means = (df['water_fraction'][aug_mask].mean() * site.area) / 1000000
 
 
-
+#%%
 # Convert to numpy arrays
 x_vals = np.array(x_vals_list)
 y_vals = np.array(y_vals_list)
