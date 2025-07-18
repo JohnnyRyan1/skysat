@@ -1,3 +1,4 @@
 glacier-strain-tools-main/*
 .DS_Store
 .gitignore
+old/*
