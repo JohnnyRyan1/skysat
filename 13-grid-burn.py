@@ -29,7 +29,7 @@ path3 = '/Volumes/EXTERNAL_USB/skysat/'
 aoi = 'aoi1'
 
 # Define files
-files = sorted(glob.glob(path3 + aoi + '/apply/prob-scenes/*.tif'))
+files = sorted(glob.glob(path2 + aoi + '/apply/prob-scenes/*.tif'))
 
 # Import intersections
 gdf = gpd.read_file(path2 + 'shapefiles/' + aoi + '-index-overlaps.shp')

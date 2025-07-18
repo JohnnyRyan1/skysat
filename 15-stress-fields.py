@@ -18,13 +18,13 @@ import strain_tools
 #%%
 
 # Define user
-user = 'johnnyryan'
+user = 'jr555'
 
 # Define path
-path1 = '/Users/' + user + '/Library/CloudStorage/OneDrive-DukeUniversity/research/skysat/data'
+path1 = '/Users/' + user + '/Library/CloudStorage/OneDrive-DukeUniversity/research/skysat/data/'
 
-vx_fpath = path1 + "maeasures/GL_vel_mosaic_Annual_01Dec18_30Nov19_vx_v05.0.tif"
-vy_fpath = path1 + "maeasures/GL_vel_mosaic_Annual_01Dec18_30Nov19_vy_v05.0.tif"
+vx_fpath = path1 + "measures/GL_vel_mosaic_Annual_01Dec18_30Nov19_vx_v05.0.tif"
+vy_fpath = path1 + "measures/GL_vel_mosaic_Annual_01Dec18_30Nov19_vy_v05.0.tif"
 
 vx = rxr.open_rasterio(vx_fpath).squeeze(drop=True)
 vy = rxr.open_rasterio(vy_fpath).squeeze(drop=True)
@@ -75,9 +75,9 @@ e_M = 0.5 * (principal_strain_rates.e_1 + principal_strain_rates.e_2) # mean sur
 #%%
 
 
-e_M.rio.to_raster(path1 + 'strain-rates/strain-rate-01Dec15_30Nov16.tif', tiled=True)
+e_M.rio.to_raster(path1 + 'measures/strain-rate-01Dec18_30Nov19.tif', tiled=True)
 
-vv.rio.to_raster(path1 + 'velocities/GL_vel_mosaic_Annual_01Dec15_30Nov16_vv_v05.0.tif', tiled=True)
+vv.rio.to_raster(path1 + 'measures/GL_vel_mosaic_Annual_01Dec18_30Nov19_vv_v05.0.tif', tiled=True)
 
 
 
