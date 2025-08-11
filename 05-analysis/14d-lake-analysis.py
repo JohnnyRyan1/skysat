@@ -4,7 +4,7 @@
 
 Lake analysis.
 
-NOTE: Removed 2019-08-02 and 2019-06-17 because there were some georeferencing issues.
+NOTE: Removed 2019-06-17 and 2019-08-02 because there were some georeferencing issues.
 
 """
 
@@ -222,7 +222,7 @@ c3 = '#F8A557'
 c4 = '#3CBEDD'
 
 # Create 3x3 subplots
-fig, ax1 = plt.subplots(1, 1, figsize=(10, 4),layout='constrained', sharex=True)
+fig, ax1 = plt.subplots(1, 1, figsize=(10, 4),layout='constrained')
 
 
 # Define start and end dates for each month
@@ -235,15 +235,15 @@ widths = (end_dates - start_dates).days + 1
 
 # Create the bar plot
 ax1.bar(start_dates, small_values, color=c1,  width=widths, align='edge', zorder=2, 
-        edgecolor='k', alpha=0.7, label='<0.001 km$^2$')
+        edgecolor='k', alpha=0.7, label='<0.001')
 ax1.bar(start_dates, medium_values, bottom=small_values, color=c3, width=widths, 
-        align='edge', zorder=2, edgecolor='k', alpha=0.7, label='<0.05 & >0.001 km$^2$')
+        align='edge', zorder=2, edgecolor='k', alpha=0.7, label='<0.05 & >0.001')
 ax1.bar(start_dates, large_values, bottom=small_values+medium_values, color=c2,  
         width=widths, align='edge', zorder=2, edgecolor='k', alpha=0.7,
-        label='<0.15 & >0.05 km$^2$')
+        label='<0.15 & >0.05')
 ax1.bar(start_dates, upper_values, bottom=small_values+medium_values+large_values, 
         color=c4, width=widths, align='edge', zorder=2, edgecolor='k', alpha=0.7,
-        label='>0.15 km$^2$')
+        label='>0.15')
 
 ax2 = ax1.twinx()
 ax2.plot(mar['TIME'].values, mar_runoff, color='k', lw=2, ls='dashed', 
@@ -258,8 +258,9 @@ ax1.set_xticklabels(['May', 'Jun', 'Jul', 'Aug'], fontsize=12)
 
 ax1.set_ylabel("Surface water area (km$^2$)", fontsize=12)  
 ax2.set_ylabel("Meltwater runoff (m d$^{-1}$)", fontsize=12)  
-ax1.legend(loc=2, fontsize=12)
-ax2.legend(loc=1, fontsize=12)
+legend1 = ax1.legend(loc=2, title='Meltwater area (km$^2$)', fontsize=12)
+legend1.get_title().set_fontsize(12)
+legend2 = ax2.legend(loc=1, fontsize=12)
 
 ax1.tick_params(axis='both', which='major', labelsize=12)
 ax2.tick_params(axis='both', which='major', labelsize=12)
@@ -363,15 +364,15 @@ fig.subplots_adjust(hspace=0.1)
 
 # Plot with shared y-axis by row and left-only y-axis labels
 ax1.scatter(s2_df.index, s2_df['lake8'], color=c1, zorder=1, s=50, label='Sentinel-2')
-ax1.scatter(lake_df.index, lake_df['lake8'], zorder=2, label='SkySat')
+ax1.scatter(lake_df.index, lake_df['lake8'], zorder=2, label='SkySat', s=50)
 ax2.scatter(s2_df.index, s2_df['lake9'], color=c1, zorder=2, s=50)
-ax2.scatter(lake_df.index, lake_df['lake9'], zorder=3)
+ax2.scatter(lake_df.index, lake_df['lake9'], zorder=3, s=50)
 ax3.scatter(s2_df.index, s2_df['lake10'], color=c1, zorder=2, s=50)
-ax3.scatter(lake_df.index, lake_df['lake10'], zorder=3)
-ax4.scatter(s2_df.index, s2_df['lake11'], color=c1, zorder=2)
-ax4.scatter(lake_df.index, lake_df['lake11'], zorder=3)
-ax5.scatter(s2_df.index, s2_df['lake12'], color=c1, zorder=2)
-ax5.scatter(lake_df.index, lake_df['lake12'], zorder=3)
+ax3.scatter(lake_df.index, lake_df['lake10'], zorder=3, s=50)
+ax4.scatter(s2_df.index, s2_df['lake11'], color=c1, zorder=2, s=50)
+ax4.scatter(lake_df.index, lake_df['lake11'], zorder=3, s=50)
+ax5.scatter(s2_df.index, s2_df['lake12'], color=c1, zorder=2, s=50)
+ax5.scatter(lake_df.index, lake_df['lake12'], zorder=3, s=50)
 
 ax1.axvline(x=pd.to_datetime('2019-06-11'), ls='dashed', color='k', lw=2, alpha=0.5)
 ax2.axvline(x=pd.to_datetime('2019-06-24'), ls='dashed', color='k', lw=2, alpha=0.5)
