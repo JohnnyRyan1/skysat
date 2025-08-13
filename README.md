@@ -22,13 +22,14 @@ skysat/
 ├── 04-post-process	
 ├── 05-analysis		
 ├── 06-figures
+├── 07-models
 ├── LICENSE
 └── README.md
 ```
 
 ## 📌 Data availability
 
-Data required to reproduce the findings of this study will be available soon at Duke University Libraries Digital Repository. 
+Data required to reproduce the findings of this study are currently available on [Google Drive](https://drive.google.com/drive/folders/1LKWX9fmxTQtnv-68AqrVCYchlh2M6XVj) but will be available soon at Duke University Libraries Digital Repository. 
 
 
 ![Figure 2](06-figures/figX-classified.png) 
