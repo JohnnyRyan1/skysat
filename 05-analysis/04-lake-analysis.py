@@ -30,6 +30,7 @@ aoi = 'aoi1'
 
 # Import data
 all_df = pd.read_csv(path1 + 'skysat/data/' + aoi + '/water-stats.csv')
+all_df = all_df.replace(np.nan, 0)
 lake_df = pd.read_csv(path1 + 'skysat/data/' + aoi + '/lake-stats.csv')
 s2_df = pd.read_csv(path1 + 'skysat/data/' + aoi + '/lake-stats-s2.csv')
 all_df[all_df.columns[0]] = pd.to_datetime(all_df.iloc[:, 0])
@@ -58,7 +59,6 @@ may_mask = all_df.index.month == 5
 may_water_fraction = all_df['water_fraction'][may_mask].mean()
 may_water_area = (may_water_fraction * site.area / 1000000).values[0]
 
-
 jun_mask = all_df.index.month == 6
 jun_water_fraction = all_df['water_fraction'][jun_mask].mean()
 jun_water_area = (jun_water_fraction * site.area / 1000000).values[0]
@@ -72,18 +72,18 @@ aug_water_fraction = all_df['water_fraction'][aug_mask].mean()
 aug_water_area = (aug_water_fraction * site.area / 1000000).values[0]
 
 print('We find that surface water attained was \
-%.2f %% of our study site in May June' %(may_water_fraction*100))
+%.1f %% (or %.1f km2) of our study site in May' %(may_water_fraction*100, may_water_area))
 
 print('We find that surface water attained a \
-maximum area of %.2f %% of our study site during June' %(jun_water_fraction*100))
+maximum area of %.1f %% (or %.1f km2) of our study site during June' %(jun_water_fraction*100, jun_water_area))
 
 print('By July, surface water decreases to \
-%.2f %% ' %(jul_water_fraction*100))
+%.1f %% (or %.1f km2)' %(jul_water_fraction*100, jul_water_area))
 
 print('By August, surface water decreases to \
-%.2f %% ' %(aug_water_fraction*100))
+%.1f %% (or %.1f km2)' %(aug_water_fraction*100, aug_water_area))
 
-print("Loss between Jun and Aug is %.2f %%" %(((jun_water_area-aug_water_area)/jun_water_area)*100))
+print("Loss between Jun and Aug is %.1f %%" %(((jun_water_area-aug_water_area)/jun_water_area)*100))
       
 #%%
 
@@ -96,42 +96,47 @@ may_mask = all_df.index.month == 5
 may_water_fraction_small = (all_df['small']/all_df['water_area'])[may_mask].mean()
 may_water_fraction_medium = (all_df['medium']/all_df['water_area'])[may_mask].mean()
 may_water_fraction_large = (all_df['large']/all_df['water_area'])[may_mask].mean()
+may_water_fraction_xlarge = (all_df['xlarge']/all_df['water_area'])[may_mask].mean()
 may_water_area_small = (may_water_fraction_small * may_water_fraction) * (site.area / 1000000).values[0]
 may_water_area_medium = (may_water_fraction_medium * may_water_fraction) * (site.area / 1000000).values[0]
 may_water_area_large = (may_water_fraction_large * may_water_fraction) * (site.area / 1000000).values[0]
+may_water_area_xlarge = (may_water_fraction_xlarge * may_water_fraction) * (site.area / 1000000).values[0]
 
 jun_mask = all_df.index.month == 6
 jun_water_fraction_small = (all_df['small']/all_df['water_area'])[jun_mask].mean()
 jun_water_fraction_medium = (all_df['medium']/all_df['water_area'])[jun_mask].mean()
 jun_water_fraction_large = (all_df['large']/all_df['water_area'])[jun_mask].mean()
+jun_water_fraction_xlarge = (all_df['xlarge']/all_df['water_area'])[jun_mask].mean()
 jun_water_area_small = (jun_water_fraction_small * jun_water_fraction) * (site.area / 1000000).values[0]
 jun_water_area_medium = (jun_water_fraction_medium * jun_water_fraction) * (site.area / 1000000).values[0]
 jun_water_area_large = (jun_water_fraction_large * jun_water_fraction) * (site.area / 1000000).values[0]
+jun_water_area_xlarge = (jun_water_fraction_xlarge * jun_water_fraction) * (site.area / 1000000).values[0]
 
 jul_mask = all_df.index.month == 8
 jul_water_fraction_small = (all_df['small']/all_df['water_area'])[jul_mask].mean()
 jul_water_fraction_medium = (all_df['medium']/all_df['water_area'])[jul_mask].mean()
 jul_water_fraction_large = (all_df['large']/all_df['water_area'])[jul_mask].mean()
+jul_water_fraction_xlarge = (all_df['xlarge']/all_df['water_area'])[jul_mask].mean()
 jul_water_area_small = (jul_water_fraction_small * jul_water_fraction) * (site.area / 1000000).values[0]
 jul_water_area_medium = (jul_water_fraction_medium * jul_water_fraction) * (site.area / 1000000).values[0]
 jul_water_area_large = (jul_water_fraction_large * jul_water_fraction) * (site.area / 1000000).values[0]
+jul_water_area_xlarge = (jul_water_fraction_xlarge * jul_water_fraction) * (site.area / 1000000).values[0]
 
 aug_mask = all_df.index.month == 8
 aug_water_fraction_small = (all_df['small']/all_df['water_area'])[aug_mask].mean()
 aug_water_fraction_medium = (all_df['medium']/all_df['water_area'])[aug_mask].mean()
 aug_water_fraction_large = (all_df['large']/all_df['water_area'])[aug_mask].mean()
+aug_water_fraction_xlarge = (all_df['xlarge']/all_df['water_area'])[aug_mask].mean()
 aug_water_area_small = (aug_water_fraction_small * aug_water_fraction) * (site.area / 1000000).values[0]
 aug_water_area_medium = (aug_water_fraction_medium * aug_water_fraction) * (site.area / 1000000).values[0]
 aug_water_area_large = (aug_water_fraction_large * aug_water_fraction) * (site.area / 1000000).values[0]
+aug_water_area_xlarge = (aug_water_fraction_xlarge * aug_water_fraction) * (site.area / 1000000).values[0]
 
 # Find stacked values
 small_values = np.array([may_water_area_small, jun_water_area_small, jul_water_area_small, aug_water_area_small])
 medium_values = np.array([may_water_area_medium, jun_water_area_medium, jun_water_area_medium, aug_water_area_medium])
 large_values = np.array([may_water_area_large, jun_water_area_large, jul_water_area_large, aug_water_area_large])
-upper_values = np.array([may_water_area-(may_water_area_large+may_water_area_medium+may_water_area_small),
-                jun_water_area-(jun_water_area_large+jun_water_area_medium+jun_water_area_small),
-                jul_water_area-(jul_water_area_large+jul_water_area_medium+jul_water_area_small), 
-                aug_water_area-(aug_water_area_large+aug_water_area_medium+aug_water_area_small)])
+xlarge_values = np.array([may_water_area_xlarge, jun_water_area_xlarge, jul_water_area_xlarge, aug_water_area_xlarge])
 
 #%%
 may_small = may_water_area_large+may_water_area_medium+may_water_area_small
@@ -139,41 +144,42 @@ jun_small = jun_water_area_large+jun_water_area_medium+jun_water_area_small
 jul_small = jul_water_area_large+jul_water_area_medium+jul_water_area_small
 aug_small = aug_water_area_large+aug_water_area_medium+aug_water_area_small
 
-may_large = may_water_area-(may_water_area_large+may_water_area_medium+may_water_area_small)
-jun_large = jun_water_area-(jun_water_area_large+jun_water_area_medium+jun_water_area_small)
-jul_large = jul_water_area-(jul_water_area_large+jul_water_area_medium+jul_water_area_small)
-aug_large = aug_water_area-(aug_water_area_large+aug_water_area_medium+aug_water_area_small)
-
-print('Lakes >0.15 km2 account for %.2f %% of \
-total surface water in June' % ((jun_large/jun_water_area)*100))
+print('Lakes >0.15 km2 account for %.1f %% of \
+total surface water in June' % ((jun_water_area_xlarge/jun_water_area)*100))
 
 print('Lakes >0.15 km2 increase by %.2f km2 between May and Jun while smaller \
-lakes decrease by %.2f km2' %((jun_large-may_large), (jun_small-may_small)))
+lakes decrease by %.1f km2' %((jun_water_area_xlarge-may_water_area_xlarge), (jun_small-may_small)))
 
-print('Lakes >0.15 km2 decrease by %.2f km2 between Jun and \
-Jul' %((jun_large-jul_large)))
+print('Lakes >0.15 km2 decrease by %.1f km2 between Jun and \
+Jul' %((jun_water_area_xlarge-jul_water_area_xlarge)))
 
-print('Lakes >0.15 km2 decrease by %.2f km2 between Jul and \
-Aug' %((jul_large-aug_large)))
+print('Lakes >0.15 km2 decrease by %.1f km2 between Jul and \
+Aug' %((jul_water_area_xlarge-aug_water_area_xlarge)))
 
-print('Large lakes responsible for %.2f of total decrease' %(((jun_large-aug_large)/(jun_water_area-aug_water_area))*100))
+print('Large lakes responsible for %.2f of total decrease' %(((jun_water_area_xlarge-aug_water_area_xlarge)/(jun_water_area-aug_water_area))*100))
 
 #%%
 
-print('Lakes <0.15 km2 account for %.2f %% of \
+print('Lakes <0.15 km2 account for %.1f %% of \
 total surface water in May' % ((may_small/may_water_area)*100))
 
-print('Lakes <0.15 km2 account for %.2f %% of \
-total surface water in Aug' % ((aug_small/aug_water_area)*100))
-
-print('Lakes <0.001 km2 account for %.2f %% of \
+print('Lakes <0.015 km2 account for %.1f %% of \
 total surface water in May' % ((may_water_area_small/may_water_area)*100))
 
-print('Lakes <0.001 km2 account for %.2f %% of \
+print('Lakes <0.015 km2 account for %.1f %% of \
+total surface water in Jul' % ((jul_water_area_small/jul_water_area)*100))
+
+print('Lakes <0.15 km2 account for %.1f %% of \
+total surface water in Aug' % ((aug_small/aug_water_area)*100))
+
+print('Lakes <0.015 km2 account for %.1f %% of \
+total surface water in May' % ((may_water_area_small/may_water_area)*100))
+
+print('Lakes <0.015 km2 account for %.1f %% of \
 total surface water in Aug' % ((aug_water_area_small/aug_water_area)*100))
 
 print('Difference between max and min small water bodies is %.1f km2' % (may_small-aug_small))
-print('Difference between max and min large water bodies is %.1f km2' % (jun_large-may_large))
+print('Difference between max and min large water bodies is %.1f km2' % (jun_water_area_xlarge-may_water_area_xlarge))
 print('Difference between max and min tiny water bodies is %.1f km2' % (may_water_area_small-aug_water_area_small))
 
 
@@ -195,7 +201,7 @@ print('Area of surface water in Zhang et al. (2023) is %.1f %%' %((z_area*100/si
 
 #%%
 
-# Define latitude and longitude of three grid cells for Store Glacier
+# Define latitude and longitude of three grid cells for study site
 lat, lon = 68.90, -48.86
 
 def find_idx(lat, lon):
@@ -211,6 +217,11 @@ def find_idx(lat, lon):
 idx = find_idx(lat, lon)
 
 mar_runoff = mar['RU'][:,0, idx[0], idx[1]].values / 1000
+
+#%%
+
+# Define shortwave down for field site
+mar_swd =  mar['SWD'][:, idx[0], idx[1]].values
 
 
 #%%
@@ -235,13 +246,13 @@ widths = (end_dates - start_dates).days + 1
 
 # Create the bar plot
 ax1.bar(start_dates, small_values, color=c1,  width=widths, align='edge', zorder=2, 
-        edgecolor='k', alpha=0.7, label='<0.001')
+        edgecolor='k', alpha=0.7, label='<0.015')
 ax1.bar(start_dates, medium_values, bottom=small_values, color=c3, width=widths, 
-        align='edge', zorder=2, edgecolor='k', alpha=0.7, label='<0.05 & >0.001')
+        align='edge', zorder=2, edgecolor='k', alpha=0.7, label='<0.05 & >0.015')
 ax1.bar(start_dates, large_values, bottom=small_values+medium_values, color=c2,  
         width=widths, align='edge', zorder=2, edgecolor='k', alpha=0.7,
         label='<0.15 & >0.05')
-ax1.bar(start_dates, upper_values, bottom=small_values+medium_values+large_values, 
+ax1.bar(start_dates, xlarge_values, bottom=small_values+medium_values+large_values, 
         color=c4, width=widths, align='edge', zorder=2, edgecolor='k', alpha=0.7,
         label='>0.15')
 
