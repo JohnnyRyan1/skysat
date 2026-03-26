@@ -278,7 +278,7 @@ ax2.tick_params(axis='both', which='major', labelsize=12)
 ax1.grid(True, which="both", linestyle="--", linewidth=1, zorder=0)
 ax1.set_xlim(all_df.index[0], all_df.index[-1])
 
-plt.savefig(path1 + 'skysat/figures/' + 'figX-lake-change.png', dpi=300)
+plt.savefig('/Users/jr555/Library/CloudStorage/OneDrive-DukeUniversity/research/skysat/revision/figures/figure4.jpg', dpi=300)
 
 plt.show()
 
