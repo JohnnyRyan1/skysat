@@ -2,7 +2,7 @@
 
 This repository contains the code and data references for the article:
 
-> Ryan, J. C., Datta, R. T., & Cooley, S. W., (2026). **Mechanisms of surface meltwater ponding and drainage on the Greenland Ice Sheet revealed using deep learning and SkySat imagery**. AGU Advances, 7, e2025AV002030. [https://doi.org/10.1029/2025AV002030](https://doi.org/10.1029/2025AV002030) 
+> Ryan, J. C., Datta, R. T., & Cooley, S. W., (2026). **Mechanisms of surface meltwater ponding and drainage on the Greenland Ice Sheet revealed using deep learning and SkySat imagery**. *AGU Advances*, 7, e2025AV002030. [https://doi.org/10.1029/2025AV002030](https://doi.org/10.1029/2025AV002030) 
 
 ## 🧊 Summary
 
